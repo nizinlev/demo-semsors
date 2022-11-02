@@ -1,8 +1,10 @@
 import time,datetime
 
-
+# The current hours 
 h=int(datetime.datetime.now().strftime('%H'))
 print(h)
+
+#function that return the min and max do per hour, receives daily minimum and maximum
 def avg_do(maxDaily,minDaily):
     deltaDay=round((maxDaily-minDaily)/8,1)
     deltaNight=round((maxDaily-minDaily)/16,1)
@@ -17,11 +19,10 @@ def avg_do(maxDaily,minDaily):
         maxHour=maxDaily-(deltaNight*(10+h))
     print('h={},minh={},maxh={}'.format(h,round(minHour,1),round(maxHour,1)))
     return [round(minHour,1),round(maxHour,1)]
-# avg_do()
 
+
+#function that return the min and max battery per hour, receives highest and lowest battery
 def avg_level_battery(maxDailyBtr,minDailyBtr):
-    # minDailyBtr=11.9
-    # maxDailyBtr=13.4
     deltaUp=(maxDailyBtr-minDailyBtr)/4
     deltaDown=(maxDailyBtr-minDailyBtr)/20
     if h>8 and h<14:
@@ -32,11 +33,10 @@ def avg_level_battery(maxDailyBtr,minDailyBtr):
         levelBtr=maxDailyBtr-(deltaDown*(11+h))
     print('level battery: ',levelBtr)
     return levelBtr
-# avg_level_battery()
 
+
+#function that return the min and max temp per hour, receives daily minimum and maximum
 def avg_temp(maxTemp,minTemp):
-    # maxTemp=21.9
-    # minTemp=20.1
     deltaUp=(maxTemp-minTemp)/7
     deltaDown=(maxTemp-minTemp)/17
     if h>6 and h<14:

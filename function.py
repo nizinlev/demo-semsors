@@ -4,6 +4,10 @@ import time,datetime
 h=int(datetime.datetime.now().strftime('%H'))
 print(h)
 
+
+
+
+
 #function that return the min and max do per hour, receives daily minimum and maximum
 def avg_do(maxDaily,minDaily):
     deltaDay=round((maxDaily-minDaily)/8,1)

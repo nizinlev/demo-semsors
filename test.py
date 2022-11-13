@@ -2,7 +2,6 @@ import requests
 import random
 import time,datetime
 from function import avg_do,avg_level_battery,avg_temp
-print('start sending')
 
 
 #class to create sensors
@@ -35,30 +34,55 @@ class Sensors:
             print(self.access_token)
             print(str(data))
         print(sendData.text)
-        print('finish sending')
 
 
-
+#name sensor= (url server, access token,location of sensors)
 Do=Sensors('demo.thingsboard.io','DO1234',32.436911,35.524924)
 SP200=Sensors('demo.thingsboard.io','SP200',32.449634,35.518630)
 SP201=Sensors('demo.thingsboard.io','SP201',32.435646,35.527860)
 SP202=Sensors('demo.thingsboard.io','SP202',32.436148,35.526218)
 SP203=Sensors('demo.thingsboard.io','SP203',32.436474,35.525821)
 
+#hours and minutes in realtime
+h=int(datetime.datetime.now().strftime('%H'))
+m=int(datetime.datetime.now().strftime('%M'))
+print(h,m)
 
-for i in range(10000):
-    SP203.send_data_sensor(16.8,2,23,19.2,13.8,12)
-    SP202.send_data_sensor(12.8,2.1,23,19.2,13.8,12)
-    SP201.send_data_sensor(10,1.8,23,19.2,13.8,12)
-    SP200.send_data_sensor(14.8,2,23,19.2,13.8,12)
-    Do.send_data_sensor(12,2.5,23,19.2,13.2,12)
-    time.sleep(180)
-    print('{} sending left'.format((10000-i)))
+i=0
+while i>-1:
+    if(h==6 or h==12 or h==18 or h==0 and m<20):
+        for x in range(7):
+            print('restart loop')
+            SP203.send_data_sensor(16.8,2,23,19.2,13.8,12)
+            SP202.send_data_sensor(12.8,2.1,23,19.2,13.8,12)
+            SP201.send_data_sensor(10,1.8,23,19.2,13.8,12)
+            SP200.send_data_sensor(14.8,2,23,19.2,13.8,12)
+            Do.send_data_sensor(12,2.5,23,19.2,13.2,12)
+            print('Going sleep for 3 minutes')
+            time.sleep(180)
+    else:
+        print('normal loop')
+        SP203.send_data_sensor(16.8,2,23,19.2,13.8,12)
+        SP202.send_data_sensor(12.8,2.1,23,19.2,13.8,12)
+        SP201.send_data_sensor(10,1.8,23,19.2,13.8,12)
+        SP200.send_data_sensor(14.8,2,23,19.2,13.8,12)
+        Do.send_data_sensor(12,2.5,23,19.2,13.2,12)
+        print('Going sleep for 20 minutes')
+        time.sleep(1200)
+    i+=1
 
 
 
 
 
+# for i in range(10000):
+#     SP203.send_data_sensor(16.8,2,23,19.2,13.8,12)
+#     SP202.send_data_sensor(12.8,2.1,23,19.2,13.8,12)
+#     SP201.send_data_sensor(10,1.8,23,19.2,13.8,12)
+#     SP200.send_data_sensor(14.8,2,23,19.2,13.8,12)
+#     Do.send_data_sensor(12,2.5,23,19.2,13.2,12)
+#     print('{} sending left, go sleep'.format((10000-i)))
+#     time.sleep(1200)
 
 
 
